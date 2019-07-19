@@ -88,7 +88,7 @@ export function getTimeOfDay() {
 }
 
 export function daysToFEP() {
-  today = new Date()
+  const today = new Date()
   const fep = new Date(today.getFullYear(), 7, 19)
   const one_day = 1000 * 60 * 60 * 24
   const daysLeft = Math.ceil((fep.getTime() - today.getTime()) / (one_day))

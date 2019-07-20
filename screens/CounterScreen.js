@@ -8,7 +8,6 @@ import {
 import { daysToFEP } from '../constants/DateAPI.js'
 
 export default class Counter extends React.Component {
-
     render() {
         const daysLeft = daysToFEP()
         return (
@@ -18,10 +17,6 @@ export default class Counter extends React.Component {
             </SafeAreaView>
         )
     }
-}
-
-Counter.navigationOptions = {
-    header: null,
 }
 
 const styles = StyleSheet.create({

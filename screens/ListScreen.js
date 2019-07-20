@@ -5,31 +5,56 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native'
 import AddTodoForm from './AddTodoForm'
 import { ListItem } from '../components/listItem'
-// import { Ionicons } from '@expo/vector-icons'
-// import { getToDoList } from '../database.js'
+import { db } from "../constants/firebase"
 
 export default class ListScreen extends React.Component {
   state = {
     showForm: false,
-    todos: [
-      { id: 0, name: "CNN Lecture" },
-      { id: 1, name: "Laplace Transform" },
-      { id: 2, name: "Calculus Lecture" },
-      { id: 3, name: "Epsilon-Delta" },
-    ],
-    indexOfTodos: 3,
+    todos: [],
+  }
+  
+  componentDidMount() {
+    let todoRef = db.collection('todos')
+    let _ = todoRef.onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+
+        if (change.type === 'added') {
+          this.setState(prevState => ({
+            todos: [
+              ...prevState.todos,
+              { id: change.doc.id, name: change.doc.data().name },
+            ],
+          }))
+        } 
+
+        if (change.type === 'removed') {
+          this.setState({
+            todos: this.state.todos.filter(todo => todo.id !== change.doc.id)
+          })
+        }
+
+        if (change.type === 'modified') {
+          this.setState({
+            todos: this.state.todos.filter(todo => todo.id !== change.doc.id),
+          })
+          this.setState({
+            todos: [
+              ...this.state.todos,
+              { id: change.doc.id, name: change.doc.data().name },
+            ],
+          })
+        }
+
+      })
+    })
   }
 
   removeTodo = (id) => {
-    this.setState(prevState => ({
-      todos: this.state.todos.filter(todo => todo.id !== id),
-      indexOfTodos: prevState.indexOfTodos + 1,
-    }))
+    db.collection('todos').doc(id).delete()
   }
 
   showForm = () => {
@@ -37,14 +62,12 @@ export default class ListScreen extends React.Component {
   }
 
   addToDo = (newTodo) => {
-    this.setState(prevState => ({
-      showForm: false, 
-      todos: [
-        ...prevState.todos,
-        { id: (prevState.indexOfTodos + 1), name: newTodo.name }
-      ],
-      indexOfTodos: prevState.indexOfTodos + 1,
-    }))
+    db.collection('todos').add({
+      name: newTodo.name,
+    })
+    this.setState({
+      showForm: false,
+    })
   }
 
   cancelAddingToDo = () => {

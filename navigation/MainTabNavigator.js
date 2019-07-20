@@ -5,6 +5,7 @@ import HomeScreen from '../screens/HomeScreen'
 import ListScreen from '../screens/ListScreen'
 import CounterScreen from '../screens/CounterScreen'
 import BooksScreen from '../screens/BooksScreen'
+import BookDetailScreen from '../screens/BookDetailScreen'
 
 HomeScreen.navigationOptions = {
   tabBarIcon: ({ tintColor }) => (
@@ -24,7 +25,12 @@ CounterScreen.navigationOptions = {
   )
 }
 
-BooksScreen.navigationOptions = {
+const bookStackNavigator = createStackNavigator({
+  BooksScreen,
+  BookDetailScreen,
+})
+
+bookStackNavigator.navigationOptions = {
   tabBarIcon: ({ tintColor }) => (
     <Ionicons name="md-book" size={30} color={tintColor} />
   )
@@ -34,7 +40,7 @@ const tabNavigator = createBottomTabNavigator({
   HomeScreen,
   ListScreen,
   CounterScreen,
-  BooksScreen,
+  bookStackNavigator,
 }, {
     tabBarOptions: {
       showLabel: false,

@@ -9,6 +9,12 @@ import {
 import BookSection from '../components/bookSection'
 
 export default class BooksScreen extends React.Component {
+    navigateToDetails = (info) => {
+        this.props.navigation.navigate('BookDetailScreen', {
+            info: info,
+        })
+    }
+
     render() {
         return (
             <SafeAreaView style={styles.container}>
@@ -16,8 +22,8 @@ export default class BooksScreen extends React.Component {
                     <Text style={styles.titleText}>Books</Text>
                 </View>
                 <ScrollView style={styles.container}>
-                    <BookSection finished={false} />
-                    <BookSection finished={true} />
+                    <BookSection finished={false} onPress={this.navigateToDetails} />
+                    <BookSection finished={true} onPress={this.navigateToDetails} />
                 </ScrollView>
             </SafeAreaView>
         )

@@ -1,12 +1,11 @@
 import React from 'react'
 import {
-    Image,
-    Platform,
     StyleSheet,
     Text,
     View,
 } from 'react-native'
 import { db } from "../constants/firebase"
+import BookButton from './bookButton'
 
 export default class BookSection extends React.Component {
     state = {
@@ -22,7 +21,13 @@ export default class BookSection extends React.Component {
                     this.setState(prevState => ({
                         books: [
                             ...prevState.books,
-                            { id: change.doc.id, image: change.doc.data().image, finished: change.doc.data().finished },
+                            { 
+                                id: change.doc.id, 
+                                title: change.doc.data().title, 
+                                author: change.doc.data().author,
+                                image: change.doc.data().image, 
+                                finished: change.doc.data().finished,
+                            },
                         ],
                     }))
                 }
@@ -40,7 +45,13 @@ export default class BookSection extends React.Component {
                     this.setState({
                         books: [
                             ...this.state.books,
-                            { id: change.doc.id, image: change.doc.data().image, finished: change.doc.data().finished },
+                            {
+                                id: change.doc.id,
+                                title: change.doc.data().title,
+                                author: change.doc.data().author,
+                                image: change.doc.data().image,
+                                finished: change.doc.data().finished,
+                            },
                         ],
                     })
                 }
@@ -48,12 +59,14 @@ export default class BookSection extends React.Component {
         })
     }
 
+    _onPress = (info) => {
+        this.props.onPress(info)
+    }
+
     filteredBooks = (finished) => {
         let books = this.state.books.filter(book => book.finished == finished)
         let booksViews = books.map(book => (
-            <View key={book.id} style={styles.shadow}>
-                <Image style={styles.book} source={{ uri: `${book.image}` }} />
-            </View>
+            <BookButton key={book.id} onPress={this._onPress} image={book.image} desc={book} />
         ))
         return booksViews
     }
@@ -81,28 +94,6 @@ const styles = StyleSheet.create({
     },
     section: {
         marginBottom: 30,
-    },
-    book: {
-        width: 180,
-        height: 270,
-        borderRadius: 3,
-        marginBottom: 8,
-    },
-    shadow: {
-        ...Platform.select({
-            ios: {
-                shadowColor: '#000',
-                shadowOffset: {
-                    width: 2,
-                    height: 2
-                },
-                shadowOpacity: 0.8,
-                shadowRadius: 1,
-            },
-            android: {
-                elevation: 5,
-            },
-        }),
     },
     headerText: {
         fontSize: 20,

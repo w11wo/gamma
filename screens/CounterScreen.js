@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import { daysToFEP } from '../constants/DateAPI.js'
 
-export default class Counter extends React.Component {
+export default class CounterScreen extends React.Component {
     render() {
         const daysLeft = daysToFEP()
         return (

@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-    Dimensions,
     Image,
     SafeAreaView,
     ScrollView,
@@ -9,6 +8,7 @@ import {
     Text,
     View,
 } from 'react-native'
+import { db } from "../constants/firebase"
 
 export default class BookDetailScreen extends React.Component {
     static navigationOptions = ({ navigation }) => ({
@@ -29,7 +29,10 @@ export default class BookDetailScreen extends React.Component {
     }
 
     toggleSwitch = (value) => {
-      this.setState({finished: value})
+        let id = this.props.navigation.getParam('info').id
+        let ref = db.collection('books').doc(id)
+        let _ = ref.update({finished: value})
+        this.setState({finished: value})
    }
 
     render() {
@@ -40,16 +43,21 @@ export default class BookDetailScreen extends React.Component {
 
         return (
             <SafeAreaView style={styles.container}>
-                <ScrollView>
+                <ScrollView contentContainerStyle={styles.contentContainerStyle}>
                     <View style={styles.bookView}>
                         <Image style={styles.book} source={{ uri: `${image}` }} />
                     </View>
                     <View style={styles.bookDesc}>
                         <Text style={styles.title}>{title}</Text>
-                        <Text style={styles.author}>{`Written by: ${author}`}</Text>
-                        <Switch
-                            onValueChange = {this.toggleSwitch}
-                            value = {this.state.finished} />
+                        <Text style={styles.caption}>{`Written by: ${author}`}</Text>
+                        <View style={styles.textAndButton}>
+                            <Text style={styles.caption}>Mark as read:</Text>
+                            <View style={styles.toggleSwitch}>
+                                <Switch
+                                    onValueChange={this.toggleSwitch} value={this.state.finished} trackColor={{false: 'rgba(0, 0, 0, 0.2)', true: 'black'}}
+                                />
+                            </View>
+                        </View>
                     </View>
                 </ScrollView>
             </SafeAreaView>
@@ -61,6 +69,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
+        paddingBottom: 100,
+    },
+    contentContainerStyle: {
+        paddingBottom: 50,
     },
     bookView: {
         alignItems: 'center',
@@ -75,8 +87,8 @@ const styles = StyleSheet.create({
         fontFamily: 'Avenir Next',
         paddingVertical: 2,
     },
-    author: {
-        fontSize: 16,
+    caption: {
+        fontSize: 18,
         fontFamily: 'Avenir Next',
         paddingVertical: 2,
     },
@@ -87,5 +99,13 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderRadius: 5,
         marginBottom: 8,
+    },
+    textAndButton: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+    toggleSwitch: {
+        marginLeft: 10,
+        height: 18,
     },
 })

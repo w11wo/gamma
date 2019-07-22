@@ -17,9 +17,9 @@ export default class ListScreen extends React.Component {
     todos: [],
   }
   
-  componentDidMount() {
+  getTodos = () => {
     let todoRef = db.collection('todos')
-    let _ = todoRef.onSnapshot(snapshot => {
+    this.obs = todoRef.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
 
         if (change.type === 'added') {
@@ -29,7 +29,7 @@ export default class ListScreen extends React.Component {
               { id: change.doc.id, name: change.doc.data().name },
             ],
           }))
-        } 
+        }
 
         if (change.type === 'removed') {
           this.setState({
@@ -51,6 +51,14 @@ export default class ListScreen extends React.Component {
 
       })
     })
+  }
+
+  componentDidMount() {
+    this.getTodos()
+  }
+
+  componentWillUnmount() {
+    this.obs()
   }
 
   removeTodo = (id) => {

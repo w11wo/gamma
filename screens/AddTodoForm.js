@@ -15,7 +15,7 @@ export default class AddTodoForm extends React.Component {
         isFormValid: false,
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(_, prevState) {
         if (this.state.name !== prevState.name) {
             this.validateForm()
         }

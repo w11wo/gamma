@@ -12,20 +12,20 @@ export default class BookSection extends React.Component {
         books: [],
     }
 
-    componentDidMount() {
+    getBooks = () => {
         let bookRef = db.collection('books')
-        let _ = bookRef.onSnapshot(snapshot => {
+        this.unsubscribe = bookRef.onSnapshot(snapshot => {
             snapshot.docChanges().forEach(change => {
 
                 if (change.type === 'added') {
                     this.setState(prevState => ({
                         books: [
                             ...prevState.books,
-                            { 
-                                id: change.doc.id, 
-                                title: change.doc.data().title, 
+                            {
+                                id: change.doc.id,
+                                title: change.doc.data().title,
                                 author: change.doc.data().author,
-                                image: change.doc.data().image, 
+                                image: change.doc.data().image,
                                 finished: change.doc.data().finished,
                             },
                         ],
@@ -57,6 +57,14 @@ export default class BookSection extends React.Component {
                 }
             })
         })
+    }
+
+    componentDidMount() {
+        this.getBooks()
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe()
     }
 
     _onPress = (info) => {

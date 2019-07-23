@@ -17,15 +17,15 @@ export class BibleListItem extends React.Component {
     }
 
     componentDidMount() {
-        this.getListData()
+        this.getListData(this.props.passedDB)
 
         Font.loadAsync({
             'Avenir Next': require('../assets/fonts/AvenirNext-Regular.ttf'),
         })
     }
 
-    getListData = () => {
-        let ref = db.collection('bible').doc(`${this.props.dayNumber}`)
+    getListData = (passedDB) => {
+        let ref = passedDB.doc(`${this.props.dayNumber}`)
         let _ = ref.get()
             .then(doc => {
                 this.setState({

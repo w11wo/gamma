@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import { BibleListItem } from '../components/bibleListItem'
 import * as Font from 'expo-font'
+import { db } from "../constants/firebase"
 
 export default class BibleScreen extends React.Component {
     componentDidMount() {
@@ -17,10 +18,15 @@ export default class BibleScreen extends React.Component {
         })
     }
 
+    getListData = () => {
+        let ref = db.collection('bible')
+        return ref
+    }
+
     bibleList = () => {
         let bibleList = []
-        for (var i = 1; i < 83; i++) {
-            bibleList.push(<BibleListItem key={i} dayNumber={i} />)
+        for (var i = 1; i < 366; i++) {
+            bibleList.push(<BibleListItem key={i} dayNumber={i} passedDB={this.getListData()}/>)
         }
         return bibleList
     }

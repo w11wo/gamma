@@ -9,6 +9,7 @@ import {
     View,
 } from 'react-native'
 import { db } from "../constants/firebase"
+import * as Font from 'expo-font'
 
 export default class BookDetailScreen extends React.Component {
     static navigationOptions = ({ navigation }) => ({
@@ -26,6 +27,12 @@ export default class BookDetailScreen extends React.Component {
 
     state = {
         finished: this.props.navigation.getParam('info').finished,
+    }
+
+    componentDidMount() {
+        Font.loadAsync({
+            'Avenir Next': require('../assets/fonts/AvenirNext-Regular.ttf'),
+        })
     }
 
     toggleSwitch = (value) => {

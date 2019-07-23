@@ -10,6 +10,7 @@ import {
 import AddTodoForm from './AddTodoForm'
 import { ListItem } from '../components/listItem'
 import { db } from "../constants/firebase"
+import * as Font from 'expo-font'
 
 export default class ListScreen extends React.Component {
   state = {
@@ -54,6 +55,9 @@ export default class ListScreen extends React.Component {
   }
 
   componentDidMount() {
+    Font.loadAsync({
+      'Avenir Next': require('../assets/fonts/AvenirNext-Regular.ttf'),
+    })
     this.getTodos()
   }
 

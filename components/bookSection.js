@@ -6,10 +6,17 @@ import {
 } from 'react-native'
 import { db } from "../constants/firebase"
 import BookButton from './bookButton'
+import * as Font from 'expo-font'
 
 export default class BookSection extends React.Component {
     state = {
         books: [],
+    }
+
+    componentDidMount() {
+        Font.loadAsync({
+            'Avenir Next': require('../assets/fonts/AvenirNext-Regular.ttf'),
+        })
     }
 
     getBooks = () => {
@@ -96,7 +103,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         alignContent: 'center',
         paddingTop: 12,
     },

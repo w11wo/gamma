@@ -6,8 +6,15 @@ import {
     StyleSheet,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
+import * as Font from 'expo-font'
 
 export class ListItem extends React.Component {
+    componentDidMount() {
+        Font.loadAsync({
+            'Avenir Next': require('../assets/fonts/AvenirNext-Regular.ttf'),
+        })
+    }
+
     _onPress = () => {
         this.props.onPress(this.props)
     }

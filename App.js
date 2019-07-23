@@ -33,6 +33,8 @@ async function loadResourcesAsync() {
     Asset.loadAsync([
     ]),
     Font.loadAsync({
+      'Avenir Next': require('./assets/fonts/AvenirNext-Regular.ttf'),
+      'Palatino': require('./assets/fonts/palatino-regular.ttf'),
     }),
   ]) 
 }

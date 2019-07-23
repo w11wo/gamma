@@ -8,11 +8,18 @@ import {
     TextInput, 
     View 
 } from 'react-native'
+import * as Font from 'expo-font'
 
 export default class AddTodoForm extends React.Component {
     state = {
         name: '',
         isFormValid: false,
+    }
+
+    componentDidMount() {
+        Font.loadAsync({
+            'Avenir Next': require('../assets/fonts/AvenirNext-Regular.ttf'),
+        })
     }
 
     componentDidUpdate(_, prevState) {

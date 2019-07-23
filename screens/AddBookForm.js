@@ -13,6 +13,7 @@ import {
 } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
+import * as Font from 'expo-font'
 import { storage } from '../constants/firebase'
 import { Ionicons } from '@expo/vector-icons'
 import uuid from 'uuid'
@@ -37,6 +38,10 @@ export default class AddBookForm extends React.Component {
         if (status !== 'granted') {
             alert('Permissions are required to continue.');
         }
+
+        Font.loadAsync({
+            'Avenir Next': require('../assets/fonts/AvenirNext-Regular.ttf'),
+        })
     }
 
     componentDidUpdate(_, prevState) {

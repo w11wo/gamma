@@ -5,13 +5,19 @@ import {
     Text,
     View,
 } from 'react-native'
-import { getCurrentDayAndDate, getTimeOfDay } from '../constants/DateAPI.js'
+import { getCurrentDayAndDate } from '../constants/DateAPI.js'
+import * as Font from 'expo-font'
 
 export default class HomeScreen extends React.Component {
-    
+    componentDidMount() {
+        Font.loadAsync({
+            'Avenir Next': require('../assets/fonts/AvenirNext-Regular.ttf'),
+            'Palatino': require('../assets/fonts/palatino-regular.ttf'),
+        })
+    }
+
     render() {
         const date = getCurrentDayAndDate()
-        const time = getTimeOfDay()
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.titleView}>

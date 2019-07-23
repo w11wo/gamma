@@ -10,10 +10,17 @@ import {
 import BookSection from '../components/bookSection'
 import AddBookForm from './AddBookForm'
 import { db } from "../constants/firebase"
+import * as Font from 'expo-font'
 
 export default class BooksScreen extends React.Component {
     state = {
         showForm: false,
+    }
+
+    componentDidMount() {
+        Font.loadAsync({
+            'Avenir Next': require('../assets/fonts/AvenirNext-Regular.ttf'),
+        })
     }
 
     navigateToDetails = (info) => {

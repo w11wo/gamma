@@ -160,7 +160,6 @@ export default class AddBookForm extends React.Component {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        
                     </ScrollView>
                 </KeyboardAvoidingView>
             </SafeAreaView>
@@ -197,6 +196,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#FFF',
         paddingTop: 30,
+        marginBottom: 50,
     },
     contentContainerStyle: {
         paddingBottom: 100,

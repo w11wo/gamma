@@ -92,12 +92,12 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontFamily: 'Avenir Next',
-        paddingVertical: 2,
+        paddingVertical: 6,
     },
     caption: {
         fontSize: 18,
         fontFamily: 'Avenir Next',
-        paddingVertical: 2,
+        paddingVertical: 6,
     },
     book: {
         width: 320,

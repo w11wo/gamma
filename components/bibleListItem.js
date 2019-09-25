@@ -11,36 +11,46 @@ import * as Font from 'expo-font'
 import { db } from "../constants/firebase"
 
 export class BibleListItem extends React.Component {
+    _isMounted = false
+
     state = {
         read: false,
         dataLoaded: false,
     }
 
     componentDidMount() {
+        this._isMounted = true;
         this.getListData(this.props.passedDB)
-
         Font.loadAsync({
             'Avenir Next': require('../assets/fonts/AvenirNext-Regular.ttf'),
         })
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false
     }
 
     getListData = (passedDB) => {
         let ref = passedDB.doc(`${this.props.dayNumber}`)
         let _ = ref.get()
             .then(doc => {
-                this.setState({
-                    read: doc.data().read,
-                    dataLoaded: true,
-                })
+                if (this._isMounted) {
+                    this.setState({
+                        read: doc.data().read,
+                        dataLoaded: true,
+                    })
+                }  
             })
     }
 
     updateData = () => {
         let ref = db.collection('bible').doc(`${this.props.dayNumber}`)
         let _ = ref.update({ read: !this.state.read })
-        this.setState(prevState => ({
-            read: !prevState.read
-        }))
+        if (this._isMounted) {
+            this.setState(prevState => ({
+                read: !prevState.read
+            }))
+        }
     }
 
     render() {

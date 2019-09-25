@@ -97,9 +97,7 @@ export function daysToFEP() {
 
 export function daysToUTS() {
   const today = new Date()
-  console.log(today)
   const event = new Date(today.getFullYear(), 10, 6)
-  console.log(event)
   const one_day = 1000 * 60 * 60 * 24
   const daysLeft = Math.ceil((event.getTime() - today.getTime()) / (one_day))
   return daysLeft

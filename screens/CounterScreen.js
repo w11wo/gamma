@@ -5,7 +5,7 @@ import {
     Text,
     View,
 } from 'react-native'
-import { daysToFEP } from '../constants/DateAPI.js'
+import { daysToUTS, daysToUAS } from '../constants/DateAPI.js'
 import * as Font from 'expo-font'
 
 export default class CounterScreen extends React.Component {
@@ -16,15 +16,22 @@ export default class CounterScreen extends React.Component {
     }
     
     render() {
-        const daysLeft = daysToFEP()
+        const UTS = daysToUTS()
+        const UAS = daysToUAS()
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.titleView}>
                     <Text style={styles.titleText}>Reminders</Text>
                 </View>
                 <View style={styles.counterView}>
-                    <Text style={styles.counterName}>Days to FEP:</Text>
-                    <Text style={styles.dateText}>{daysLeft}</Text>
+                    <View style={styles.event}>
+                        <Text style={styles.counterName}>Days to Mid Exam:</Text>
+                        <Text style={styles.dateText}>{UTS}</Text>
+                    </View>
+                    <View style={styles.event}>
+                        <Text style={styles.counterName}>Days to Final Exam:</Text>
+                        <Text style={styles.dateText}>{UAS}</Text>
+                    </View>
                 </View>
             </SafeAreaView>
         )
@@ -36,6 +43,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         paddingHorizontal: 20,
         flex: 1,
+    },
+    event: {
+        alignItems: 'center',
+        paddingVertical: 10,
     },
     titleView: {
         alignItems: 'center',
@@ -52,12 +63,12 @@ const styles = StyleSheet.create({
         fontFamily: 'Avenir Next',
     },
     counterName: {
-        fontSize: 32,
+        fontSize: 30,
         fontFamily: 'Avenir Next',
         marginBottom: 10,
     },
     dateText: {
-        fontSize: 81,
+        fontSize: 64,
         fontFamily: 'Avenir Next',
     },
 })

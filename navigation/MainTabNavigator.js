@@ -20,15 +20,15 @@ ListScreen.navigationOptions = {
   )
 }
 
-BibleScreen.navigationOptions = {
-  tabBarIcon: ({ tintColor }) => (
-    <Ionicons name="md-journal" size={30} color={tintColor} />
-  )
-}
-
 CounterScreen.navigationOptions = {
   tabBarIcon: ({ tintColor }) => (
     <Ionicons name="ios-calendar" size={30} color={tintColor} />
+  )
+}
+
+BibleScreen.navigationOptions = {
+  tabBarIcon: ({ tintColor }) => (
+    <Ionicons name="ios-list-box" size={30} color={tintColor} />
   )
 }
 
@@ -39,7 +39,7 @@ const bookStackNavigator = createStackNavigator({
 
 bookStackNavigator.navigationOptions = {
   tabBarIcon: ({ tintColor }) => (
-    <Ionicons name="md-book" size={30} color={tintColor} />
+    <Ionicons name="md-journal" size={30} color={tintColor} />
   )
 }
 

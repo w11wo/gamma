@@ -1,8 +1,6 @@
 import React from 'react'
 import {
-    Button,
     SafeAreaView,
-    ScrollView,
     StyleSheet,
     Text,
     View,
@@ -10,6 +8,7 @@ import {
 import { BibleListItem } from '../components/bibleListItem'
 import * as Font from 'expo-font'
 import { db } from "../constants/firebase"
+import { FlatList } from 'react-native-gesture-handler'
 
 export default class BibleScreen extends React.Component {
     componentDidMount() {
@@ -23,23 +22,29 @@ export default class BibleScreen extends React.Component {
         return ref
     }
 
-    bibleList = () => {
-        let bibleList = []
-        for (var i = 1; i < 366; i++) {
-            bibleList.push(<BibleListItem key={i} dayNumber={i} passedDB={this.getListData()}/>)
-        }
-        return bibleList
+    getKeyAndDays = () => {
+        const range = (start, end) => Array.from({ length: (end - start) }, (_, k) => k + start)
+        let bibleList = range(1, 366)
+        let bibleListObject = bibleList.map(i => (
+            { key: `${i}`}
+        ))
+        return bibleListObject
     }
 
     render() {
         return (
-            <SafeAreaView style={styles.container}>
-                <View style={styles.titleView}>
-                    <Text style={styles.titleText}>Bible Reading Plan</Text>
-                </View>
-                <ScrollView style={styles.container}>
-                    {this.bibleList()}
-                </ScrollView>
+            <SafeAreaView style={styles.safeContainer}>
+                <View style={styles.container}>
+                    <View style={styles.titleView}>
+                        <Text style={styles.titleText}>Bible Reading Plan</Text>
+                    </View>
+                    <FlatList
+                        data = {
+                            this.getKeyAndDays()
+                        }
+                        renderItem={({ item }) => <BibleListItem dayNumber={item.key} passedDB={this.getListData()} />}
+                    />
+                </View>  
             </SafeAreaView>
         )
     }
@@ -50,10 +55,13 @@ BibleScreen.navigationOptions = {
 }
 
 const styles = StyleSheet.create({
+    safeContainer: {
+        flex: 1,
+        backgroundColor: 'white'
+    },
     container: {
         flex: 1,
         backgroundColor: 'white',
-        paddingHorizontal: 20,
     },
     titleView: {
         alignItems: 'center',

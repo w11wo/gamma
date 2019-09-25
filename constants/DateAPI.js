@@ -89,8 +89,26 @@ export function getTimeOfDay() {
 
 export function daysToFEP() {
   const today = new Date()
-  const fep = new Date(today.getFullYear(), 7, 19)
+  const event = new Date(today.getFullYear(), 7, 19)
   const one_day = 1000 * 60 * 60 * 24
-  const daysLeft = Math.ceil((fep.getTime() - today.getTime()) / (one_day))
+  const daysLeft = Math.ceil((event.getTime() - today.getTime()) / (one_day))
+  return daysLeft
+}
+
+export function daysToUTS() {
+  const today = new Date()
+  console.log(today)
+  const event = new Date(today.getFullYear(), 10, 6)
+  console.log(event)
+  const one_day = 1000 * 60 * 60 * 24
+  const daysLeft = Math.ceil((event.getTime() - today.getTime()) / (one_day))
+  return daysLeft
+}
+
+export function daysToUAS() {
+  const today = new Date()
+  const event = new Date(2020, 0, 28)
+  const one_day = 1000 * 60 * 60 * 24
+  const daysLeft = Math.ceil((event.getTime() - today.getTime()) / (one_day))
   return daysLeft
 }

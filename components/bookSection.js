@@ -103,9 +103,9 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignContent: 'center',
-        paddingTop: 12,
+        // paddingTop: 12,
     },
     section: {
         marginBottom: 30,
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     headerText: {
         fontSize: 20,
         fontFamily: 'Avenir Next',
-        marginTop: 10,
+        // marginTop: 10,
         marginBottom: 10,
     },
 })

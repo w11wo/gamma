@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+    Dimensions,
     Image,
     Platform,
     StyleSheet,
@@ -22,10 +23,10 @@ export default class BookButton extends React.Component {
 
 const styles = StyleSheet.create({
     book: {
-        width: 180,
-        height: 270,
+        width: Dimensions.get('window').width/2 - 48,
+        height: (Dimensions.get('window').width/2 - 48) * 1.5,
         borderRadius: 3,
-        marginBottom: 8,
+        marginBottom: 20,
     },
     shadow: {
         ...Platform.select({

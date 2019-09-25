@@ -70,6 +70,7 @@ export class BibleListItem extends React.Component {
 
 const styles = StyleSheet.create({
     listItem: {
+        marginHorizontal: 20,
         marginVertical: 10,
         padding: 10,
         alignItems: 'center',

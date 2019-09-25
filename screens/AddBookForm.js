@@ -53,8 +53,8 @@ export default class AddBookForm extends React.Component {
     _pickImage = async () => {
         let pickerResult = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [2, 3],
+            // allowsEditing: true,
+            // aspect: [2, 3],
         })
 
         this._handleImagePicked(pickerResult)
@@ -117,6 +117,10 @@ export default class AddBookForm extends React.Component {
                     <View style={styles.titleView}>
                         <Text style={styles.titleText}>Add Book</Text>
                     </View>
+                    <View style={styles.buttonRow}>
+                        <Button title="Cancel" onPress={this.handleCancel} />
+                        <Button title="Submit" onPress={this.handleSubmit} disabled={!this.state.isFormValid} />
+                    </View>
                     <ScrollView contentContainerStyle={styles.contentContainerStyle}>
                         <TextInput
                             style={styles.input}
@@ -156,10 +160,7 @@ export default class AddBookForm extends React.Component {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        <View style={styles.buttonRow}>
-                            <Button title="Cancel" onPress={this.handleCancel} />
-                            <Button title="Submit" onPress={this.handleSubmit} disabled={!this.state.isFormValid} />
-                        </View>
+                        
                     </ScrollView>
                 </KeyboardAvoidingView>
             </SafeAreaView>

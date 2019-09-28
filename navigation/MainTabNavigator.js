@@ -1,5 +1,6 @@
 import React from 'react'
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation'
+import { createBottomTabNavigator } from 'react-navigation-tabs'
+import { createStackNavigator } from 'react-navigation-stack'
 import { Ionicons } from '@expo/vector-icons'
 import HomeScreen from '../screens/HomeScreen'
 import ListScreen from '../screens/ListScreen'

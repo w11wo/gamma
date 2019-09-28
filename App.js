@@ -39,7 +39,7 @@ async function loadResourcesAsync() {
   ]) 
 }
 
-function handleLoadingError(error: Error) {
+function handleLoadingError(error) {
   console.warn(error) 
 }
 

@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
         paddingVertical: 6,
     },
     book: {
-        width: 320,
-        height: 320 * 1.5,
+        width: 350,
+        height: 350 * 1.5,
         borderWidth: 1,
         borderColor: 'black',
         borderRadius: 5,

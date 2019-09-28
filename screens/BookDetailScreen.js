@@ -1,6 +1,7 @@
 import React from 'react'
 import {
     Image,
+    Platform,
     SafeAreaView,
     ScrollView,
     StyleSheet,
@@ -51,7 +52,7 @@ export default class BookDetailScreen extends React.Component {
         return (
             <SafeAreaView style={styles.container}>
                 <ScrollView contentContainerStyle={styles.contentContainerStyle}>
-                    <View style={styles.bookView}>
+                    <View style={[styles.bookView, styles.shadow]}>
                         <Image style={styles.book} source={{ uri: `${image}` }} />
                     </View>
                     <View style={styles.bookDesc}>
@@ -102,10 +103,26 @@ const styles = StyleSheet.create({
     book: {
         width: 350,
         height: 350 * 1.5,
-        borderWidth: 1,
-        borderColor: 'black',
+        // borderWidth: 1,
+        // borderColor: 'black',
         borderRadius: 5,
         marginBottom: 8,
+    },
+    shadow: {
+        ...Platform.select({
+            ios: {
+                shadowColor: '#000',
+                shadowOffset: {
+                    width: 3,
+                    height: 3,
+                },
+                shadowOpacity: 0.5,
+                shadowRadius: 1,
+            },
+            android: {
+                elevation: 5,
+            },
+        }),
     },
     textAndButton: {
         flex: 1,

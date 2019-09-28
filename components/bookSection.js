@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+    Dimensions,
     StyleSheet,
     Text,
     View,
@@ -87,11 +88,18 @@ export default class BookSection extends React.Component {
     }
 
     render() {
+        var bookRows = this.filteredBooks(this.props.finished)
+        var numberOfBooks = this.filteredBooks(this.props.finished).length
+        
+        if (numberOfBooks % 2 != 0) {
+            bookRows.push(<View key={0} style={styles.empty}></View>)
+        }
+
         return (
             <View style={styles.section}>
                 <Text style={styles.headerText}>{this.props.finished ? "Previously Read" : "Currently Reading"}</Text>
                 <View style={styles.row}>
-                    {this.filteredBooks(this.props.finished)}
+                    {bookRows}
                 </View>
             </View>
         )
@@ -104,11 +112,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
-        alignContent: 'center',
+        alignContent: 'flex-start',
         // paddingTop: 12,
     },
     section: {
-        marginBottom: 30,
+        // marginBottom: 30,
     },
     headerText: {
         fontSize: 20,
@@ -116,4 +124,10 @@ const styles = StyleSheet.create({
         // marginTop: 10,
         marginBottom: 10,
     },
+    empty: {
+        width: Dimensions.get('window').width / 2 - 48,
+        height: (Dimensions.get('window').width / 2 - 48) * 1.5,
+        borderRadius: 3,
+        marginBottom: 20,
+    }
 })
